@@ -143,7 +143,10 @@ func (s *Service) ReconcileCNI(ctx context.Context) error {
 	s.scope.Info("updating containers", "cluster-name", s.scope.Name(), "cluster-namespace", s.scope.Namespace())
 	for _, container := range ds.Spec.Template.Spec.Containers {
 		if container.Name == "aws-node" {
-			container.Env = append(s.filterEnv(container.Env),
+			config := s.scope.DaemonSetConfig()
+
+			container.Env = append(
+				s.filterEnv(container.Env),
 				corev1.EnvVar{
 					Name:  "AWS_VPC_K8S_CNI_CUSTOM_NETWORK_CFG",
 					Value: "true",
@@ -153,6 +156,13 @@ func (s *Service) ReconcileCNI(ctx context.Context) error {
 					Value: "failure-domain.beta.kubernetes.io/zone",
 				},
 			)
+
+			for k, v := range config.Env {
+				container.Env = append(container.Env, corev1.EnvVar{
+					Name:  k,
+					Value: v,
+				})
+			}
 		}
 	}
 

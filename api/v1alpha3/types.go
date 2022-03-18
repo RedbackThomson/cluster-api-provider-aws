@@ -386,6 +386,9 @@ type CNISpec struct {
 	// CNIIngressRules specify rules to apply to control plane and worker node security groups.
 	// The source for the rule will be set to control plane and worker security group IDs.
 	CNIIngressRules CNIIngressRules `json:"cniIngressRules,omitempty"`
+
+	// DaemonSet configures the DaemonSet associated with the CNI.
+	DaemonSet DaemonSetConfig `json:"daemonSet,omitempty"`
 }
 
 // CNIIngressRules is a slice of CNIIngressRule
@@ -397,6 +400,13 @@ type CNIIngressRule struct {
 	Protocol    SecurityGroupProtocol `json:"protocol"`
 	FromPort    int64                 `json:"fromPort"`
 	ToPort      int64                 `json:"toPort"`
+}
+
+// DaemonSetConfig represents the configuration for any cluster DaemonSet
+type DaemonSetConfig struct {
+	// List of environment variables to set in each of the containers
+	// +optional
+	Env map[string]string `json:"env,omitempty"`
 }
 
 // RouteTable defines an AWS routing table.

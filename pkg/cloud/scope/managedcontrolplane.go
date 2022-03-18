@@ -186,6 +186,11 @@ func (s *ManagedControlPlaneScope) SecurityGroups() map[infrav1.SecurityGroupRol
 	return s.ControlPlane.Status.Network.SecurityGroups
 }
 
+// DaemonSetConfig returns the configuration for the CNI DaemonSet
+func (s *ManagedControlPlaneScope) DaemonSetConfig() infrav1.DaemonSetConfig {
+	return s.ControlPlane.Spec.NetworkSpec.CNI.DaemonSet
+}
+
 // SecondaryCidrBlock returns the SecondaryCidrBlock of the control plane.
 func (s *ManagedControlPlaneScope) SecondaryCidrBlock() *string {
 	return s.ControlPlane.Spec.SecondaryCidrBlock

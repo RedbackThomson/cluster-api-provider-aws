@@ -224,6 +224,17 @@ spec:
                                   - toPort
                                   type: object
                                 type: array
+                              daemonSet:
+                                description: DaemonSet configures the DaemonSet associated
+                                  with the CNI.
+                                properties:
+                                  env:
+                                    additionalProperties:
+                                      type: string
+                                    description: List of environment variables to
+                                      set in each of the containers
+                                    type: object
+                                type: object
                             type: object
                           securityGroupOverrides:
                             additionalProperties:
@@ -588,6 +599,17 @@ spec:
                                   - toPort
                                   type: object
                                 type: array
+                              daemonSet:
+                                description: DaemonSet configures the DaemonSet associated
+                                  with the CNI.
+                                properties:
+                                  env:
+                                    additionalProperties:
+                                      type: string
+                                    description: List of environment variables to
+                                      set in each of the containers
+                                    type: object
+                                type: object
                             type: object
                           securityGroupOverrides:
                             additionalProperties:
